@@ -1,12 +1,12 @@
 scriptencoding utf-8
 
-function! s:popup_menu_update(wid, ctx)
+function! s:popup_menu_update(wid, ctx) abort
   let l:buf = winbufnr(a:wid)
   let l:menu = map(copy(a:ctx.menu), '(v:key == a:ctx.select ? "→" : "  ") .. v:val')
   call setbufline(l:buf, 1, [a:ctx.title] + l:menu)
 endfunction
 
-function! s:popup_filter(ctx, wid, c)
+function! s:popup_filter(ctx, wid, c) abort
   if a:c ==# 'j'
     let a:ctx.select += a:ctx.select ==# len(a:ctx.menu)-1 ? 0 : 1
     call s:popup_menu_update(s:wid, a:ctx)
@@ -22,7 +22,7 @@ function! s:popup_filter(ctx, wid, c)
   return 1
 endfunction
 
-function! s:show_popup(title, menu)
+function! s:show_popup(title, menu) abort
   let l:ctx = {'select': 0, 'title': a:title, 'menu': a:menu}
   let s:wid = popup_create([a:title] + a:menu, {
   \  'border': [1,1,1,1],
@@ -31,7 +31,7 @@ function! s:show_popup(title, menu)
   call s:popup_menu_update(s:wid, l:ctx)
 endfunction
 
-function! s:open_a_file()
+function! s:open_a_file() abort
   let l:name = expand('<afile>')
   if empty(l:name)
     return
