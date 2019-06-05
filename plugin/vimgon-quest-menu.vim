@@ -39,4 +39,7 @@ function! s:open_a_file()
   call s:show_popup(l:name . 'があらわれた', ['たたかう', 'にげる'])
 endfunction
 
-au BufRead * call s:open_a_file()
+augroup VimgonQuestMenu
+  au!
+  au BufRead * call s:open_a_file()
+augroup END
